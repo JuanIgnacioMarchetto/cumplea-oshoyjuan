@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>¡Feliz Cumpleaños!</title>
+    <style>
+        body {
+            background: #94d4d6;
+            overflow: hidden;
+        }
+        
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            left: calc(50% - 25px);
+            width: 50px;
+            height: 75px;
+            background: linear-gradient(to bottom, #ff8a00, #ffc800);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform-origin: bottom center;
+            animation: float 6s infinite;
+        }
+        
+        .balloon::before {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: 5px;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(to bottom, #ff8a00, #ffc800);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+        
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            pointer-events: none;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffdc00;
+            border-radius: 50%;
+            animation: explode 1s infinite;
+        }
+        
+        .firework:nth-child(2n) {
+            background: #ff8a00;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(0, -300px) rotate(0deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>¡Feliz Cumpleaños!</h1>
+        <p>¿Cuántos años crees que tengo?</p>
+        <input type="number" id="ageInput" placeholder="Ingresa tu estimación de mi edad">
+        <button onclick="checkAge()">Enviar</button>
+    </div>
+
+    <script>
+        function checkAge() {
+            var age = document.getElementById("ageInput").value;
+            if (age === "37") {
+                showFireworks();
+                showMessage("¡Felicitaciones! ¡Adivinaste mi edad!");
+            } else {
+                showMessage("Gracias por tu estimación de mi edad.");
+            }
+        }
+
+        function showFireworks() {
+            var fireworksContainer = document.createElement("div");
+           fireworksContainer.classList.add("fireworks");
+
+            for (var i = 0; i < 10; i++) {
+                var firework = document.createElement("div");
+                firework.classList.add("firework");
+                firework.style.left = Math.random() * 100 + "%";
+                firework.style.top = Math.random() * 100 + "%";
+                fireworksContainer.appendChild(firework);
+            }
+
+            document.body.appendChild(fireworksContainer);
+        }
+
+        function showMessage(message) {
+            var messageContainer = document.createElement("div");
+            messageContainer.innerHTML = message;
+            document.body.appendChild(messageContainer);
+        }
+    </script>
+</body>
+</html>
